@@ -8,7 +8,7 @@ setup(name=project,
       description="A Python library for generating Atom 1.0 feeds.",
       long_description=open('README.rst').read(),
       classifiers=[
-        'Development Status :: 5 - Production',
+        'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'Operating System :: OS Independent',
         'License :: OSI Approved :: BSD License',
