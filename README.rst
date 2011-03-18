@@ -45,9 +45,15 @@ How to use? ::
 
     print feed.to_string()
 
+
 License
 -----------------------------------------
 This project is released under BSD license (http://creativecommons.org/licenses/BSD).
+
+
+Credits
+-----------------------------------------
+The code is copy-pasted from werkzeug library. Thanks to them.
 
 
 Contribution
