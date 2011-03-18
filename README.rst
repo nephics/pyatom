@@ -8,53 +8,64 @@ Extracted from werkzeug.contrib.atom and created as a standalone package.
 
 Latest Version
 -----------------------------------------
-The latest version of this project can be found at : http://bitbucket.org/sramana/pyatom.
+The latest version of this project can be found at : http://github.com/sramana/pyatom.
 
 
 Installation
 -----------------------------------------
-# Option 1 : Install via pip ::
+* Option 1 : Install via pip ::
 
     pip install pyatom
 
-# Option 2 : If you have downloaded the source ::
+* Option 2 : If you have downloaded the source ::
 
     python setup.py install
+
 
 Documentation
 -----------------------------------------
 How to use? ::
 
     from pyatom import AtomFeed
+    import datetime
 
     feed = AtomFeed(title="My Blog",
                     subtitle="My example blog for a feed test.",
                     feed_url="http://example.org/feed",
-                    url="http://example.org")
+                    url="http://example.org",
+                    author="Me")
 
     # Do this for each feed entry
     feed.add(title="My Post",
              content="Body of my post",
-             content_type='html',
+             content_type="html",
              author="Me",
              url="http://example.org/entry1",
-             updated=datetime.datetime.utcnow(),
-             published=datetime.datetime.utcnow())
+             updated=datetime.datetime.utcnow())
 
     print feed.to_string()
 
-
 License
 -----------------------------------------
-This project is licensed under New BSD license.
+This project is released under BSD license (http://creativecommons.org/licenses/BSD).
 
 
-Contribution and Feedback
+Contribution
 -----------------------------------------
-Contributions and Feedback are most welcome. Please email the author with your comments.
+Contributions are most welcome. Please submit a patch on bitbucket or github.
 
 
-Author Information
+Reporting Bugs
+-----------------------------------------
+Please report the bugs at bitbucket or github issue tracker.
+
+
+Feedback
+-----------------------------------------
+I love to hear what you think about this project. Please drop me a line.
+
+
+Author
 -----------------------------------------
 Ramana <sramana9@gmail.com>
 
