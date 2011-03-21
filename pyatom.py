@@ -66,9 +66,10 @@ def _make_text_block(name, content, content_type=None):
                                          escape(content), name)
 
 
-def format_iso8601(obj):
+def format_iso8601(obj, timezone):
     """Format a datetime object for iso8601"""
-    return obj.strftime('%Y-%m-%dT%H:%M:%SZ')
+    updated = '%Y-%m-%dT%H:%M:%S' + timezone
+    return obj.strftime(updated)
 
 
 class AtomFeed(object):
@@ -84,6 +85,7 @@ class AtomFeed(object):
     :param updated: the time the feed was modified the last time.  Must
                     be a :class:`datetime.datetime` object.  If not
                     present the latest entry's `updated` is used.
+    :param timezone: the timezone is based on utc. format the "+0900"
     :param feed_url: the URL to the feed.  Should be the URL that was
                      requested.
     :param author: the author of the feed.  Must be either a string (the
@@ -127,6 +129,7 @@ class AtomFeed(object):
         self.feed_url = kwargs.get('feed_url', self.url)
         self.id = kwargs.get('id', self.feed_url)
         self.updated = kwargs.get('updated')
+        self.timezone = kwargs.get('timezone', 'Z')
         self.author = kwargs.get('author', ())
         self.icon = kwargs.get('icon')
         self.logo = kwargs.get('logo')
@@ -164,6 +167,7 @@ class AtomFeed(object):
             self.entries.append(args[0])
         else:
             kwargs['feed_url'] = self.feed_url
+            kwargs['timezone'] = self.timezone
             self.entries.append(FeedEntry(*args, **kwargs))
 
     def __repr__(self):
@@ -188,7 +192,7 @@ class AtomFeed(object):
         yield u'<feed xmlns="http://www.w3.org/2005/Atom">\n'
         yield '  ' + _make_text_block('title', self.title, self.title_type)
         yield u'  <id>%s</id>\n' % escape(self.id)
-        yield u'  <updated>%s</updated>\n' % format_iso8601(self.updated)
+        yield u'  <updated>%s</updated>\n' % format_iso8601(self.updated, self.timezone)
         if self.url:
             yield u'  <link href="%s" />\n' % escape(self.url, True)
         if self.feed_url:
@@ -257,6 +261,7 @@ class FeedEntry(object):
                not present the URL is used, but one of both is required.
     :param updated: the time the entry was modified the last time.  Must
                     be a :class:`datetime.datetime` object. Required.
+    :param timezone: the timezone is based on utc. format the "+0900"
     :param author: the author of the feed.  Must be either a string (the
                    name) or a dict with name (required) and uri or
                    email (both optional).  Can be a list of (may be
@@ -289,6 +294,7 @@ class FeedEntry(object):
         self.url = kwargs.get('url')
         self.id = kwargs.get('id', self.url)
         self.updated = kwargs.get('updated')
+        self.timezone = kwargs.get('timezone', 'Z')
         self.summary = kwargs.get('summary')
         self.summary_type = kwargs.get('summary_type', 'html')
         self.author = kwargs.get('author')
@@ -325,7 +331,7 @@ class FeedEntry(object):
         yield u'<entry%s>\n' % base
         yield u'  ' + _make_text_block('title', self.title, self.title_type)
         yield u'  <id>%s</id>\n' % escape(self.id)
-        yield u'  <updated>%s</updated>\n' % format_iso8601(self.updated)
+        yield u'  <updated>%s</updated>\n' % format_iso8601(self.updated, self.timezone)
         if self.published:
             yield u'  <published>%s</published>\n' % \
                   format_iso8601(self.published)
