@@ -74,6 +74,7 @@ I love to hear what you think about this project. Please drop me a line.
 Author
 -----------------------------------------
 Ramana <sramana9@gmail.com>
+Praveen Gollakota
 
 * http://bitbucket.org/sramana
 * http://github.com/sramana
