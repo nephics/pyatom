@@ -334,7 +334,7 @@ class FeedEntry(object):
         yield u'  <updated>%s</updated>\n' % format_iso8601(self.updated, self.timezone)
         if self.published:
             yield u'  <published>%s</published>\n' % \
-                  format_iso8601(self.published)
+                  format_iso8601(self.published, self.timezone)
         if self.url:
             yield u'  <link href="%s" />\n' % escape(self.url)
         for author in self.author:
