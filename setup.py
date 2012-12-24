@@ -19,7 +19,7 @@ setup(name=project,
       keywords='feed rss atom',
       author='Ramana',
       author_email='sramana9@gmail.com',
-      url='http://bitbucket.org/sramana/pyatom',
+      url='http://github.com/sramana/pyatom',
       license='BSD',
       py_modules=['pyatom'],
      )
