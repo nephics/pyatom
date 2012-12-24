@@ -1,7 +1,7 @@
 from setuptools import setup
 
 project = 'pyatom'
-version = 1.2
+version = 1.3
 
 setup(name=project,
       version=version,
