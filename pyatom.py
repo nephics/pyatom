@@ -250,7 +250,12 @@ class FeedEntry(object):
     :param title: the title of the entry. Required.
     :param title_type: the type attribute for the title element.  One of
                        ``'html'``, ``'text'`` or ``'xhtml'``.
-    :param content: the content of the entry.
+    :param content: the content of the entry. Can either be a string or
+                    a dictionary (or any class which inherits from 'dict').
+                    If a dictionary is given, every key & value will serve
+                    as attribute name & value, except for the 'content',
+                    which can be used to embed content between the two
+                    <content> tags.
     :param content_type: the type attribute for the content element.  One
                          of ``'html'``, ``'text'`` or ``'xhtml'``.
     :param summary: a summary of the entry's content.
@@ -352,7 +357,15 @@ class FeedEntry(object):
             yield u'  ' + _make_text_block('summary', self.summary,
                                            self.summary_type)
         if self.content:
-            yield u'  ' + _make_text_block('content', self.content,
+            if issubclass(self.content.__class__, dict):
+                if "content" in self.content:
+                    yield u'  <content %s>%s</content>\n' % (' '.join('%s="%s"' % \
+                        (k, escape(self.content[k], True)) for k in self.content if k != "content"), escape(self.content["content"]))
+                else:
+                    yield u'  <content %s/>\n' % ' '.join('%s="%s" ' % \
+                        (k, escape(self.content[k], True)) for k in self.content)
+            else:
+                yield u'  ' + _make_text_block('content', self.content,
                                            self.content_type)
         yield u'</entry>\n'
 
