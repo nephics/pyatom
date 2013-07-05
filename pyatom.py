@@ -28,7 +28,13 @@
     :license: BSD, see LICENSE for more details.
 """
 
+import sys
+
 from datetime import datetime
+
+if sys.version_info[0] == 3:
+    basestring = str
+
 
 XHTML_NAMESPACE = 'http://www.w3.org/1999/xhtml'
 
